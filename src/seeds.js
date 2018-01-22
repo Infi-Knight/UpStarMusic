@@ -3,12 +3,13 @@ import faker from 'faker';
 import { Db, Server } from 'mongodb';
 import { GENRES } from './constants';
 
-const MINIMUM_ARTISTS = 2;
-const ARTISTS_TO_ADD = 15;
+const MINIMUM_ARTISTS = 200;
+const ARTISTS_TO_ADD = 15000;
 
 let artistsCollection;
 const db = new Db('upstar_music', new Server('localhost', 27017));
-db.open()
+db
+  .open()
   .then(() => {
     artistsCollection = db.collection('artists');
     return artistsCollection.count({});
@@ -21,7 +22,6 @@ db.open()
     }
   })
   .catch(e => console.log(e));
-
 
 function createArtist() {
   return {
@@ -69,5 +69,5 @@ function randomEntry(array) {
 }
 
 function randomBetween(min, max) {
-  return ~~(Math.random() * (max-min)) + min;
+  return ~~(Math.random() * (max - min)) + min;
 }
